@@ -50,6 +50,7 @@ import {
   HeroIllustration,
   HeroWindowCard,
 } from './components/PixelArt';
+import { RegistrationModal } from './components/RegistrationModal';
 
 type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
 
@@ -107,9 +108,16 @@ function PixelMark() {
 
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const closeMenu = () => setMobileOpen(false);
+
+  const openRegister = (e: React.MouseEvent) => {
+    e.preventDefault();
+    closeMenu();
+    setIsModalOpen(true);
+  };
 
   const getTimelineStyle = (index: number) => {
     if (index < 5) {
@@ -137,7 +145,7 @@ function App() {
           {['Home', 'About', 'Tracks', 'Schedule', 'Prizes', 'Rules', 'Sponsors', 'FAQ'].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} onClick={closeMenu}>{item}</a>
           ))}
-          <a href="#register" className="nav-register" onClick={closeMenu}>REGISTER NOW</a>
+          <a href="#register" className="nav-register" onClick={openRegister}>REGISTER NOW</a>
         </nav>
       </header>
 
@@ -165,7 +173,7 @@ function App() {
               <span><MapPin size={15} /> Hyderabad, India</span>
             </div>
             <div className="hero-actions">
-              <a href="#register" className="button button-primary">REGISTER NOW <ArrowUpRight size={15} /></a>
+              <a href="#register" className="button button-primary" onClick={openRegister}>REGISTER NOW <ArrowUpRight size={15} /></a>
               <a href="#about" className="button button-outline">VIEW DETAILS</a>
             </div>
           </div>
@@ -355,7 +363,7 @@ function App() {
           <div className="cloud cloud-right"><PixelCloudIcon size={70} /></div>
           <h2>READY TO BUILD <span className="text-red">THE FUTURE?</span></h2>
           <p>Join us for 24 hours of innovation, learning &amp; fun!</p>
-          <a href="mailto:hello@b2bhacks.dev" className="button button-primary">REGISTER NOW <ArrowUpRight size={15} /></a>
+          <a href="#register" className="button button-primary" onClick={openRegister}>REGISTER NOW <ArrowUpRight size={15} /></a>
         </section>
       </main>
 
@@ -391,6 +399,8 @@ function App() {
           </div>
         </div>
       </footer>
+
+      <RegistrationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
