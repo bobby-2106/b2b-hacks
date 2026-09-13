@@ -319,6 +319,20 @@ button {
   z-index: 1;
 }
 
+/* Robot in the empty right space of the hero (outside content max-width) */
+.hero-robot-static {
+  position: absolute;
+  bottom: 90px;
+  right: -90px;
+  width: clamp(240px, 20vw, 400px);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  display: block;
+}
+
 .pixel-squares {
   position: absolute;
   inset: 0;
@@ -636,6 +650,13 @@ button {
   line-height: 1.45;
 }
 
+.partner-logo-img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
 /* Split Sections */
 .split-section {
   display: flex;
@@ -657,11 +678,45 @@ button {
   padding-left: max(24px, calc((100vw - 1220px) / 2));
 }
 
+.section-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.pixel-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10.5px;
+  line-height: 1.5;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 10px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.pixel-section-label .pixel-label-tag {
+  color: #df3035;
+  font-weight: bold;
+  letter-spacing: 0.6px;
+}
+
+.pixel-section-label .pixel-label-text {
+  color: #111827;
+  letter-spacing: 1px;
+}
+
 .section-title {
   display: flex;
   align-items: center;
   gap: 9px;
-  margin-bottom: 24px;
 }
 
 .section-title svg {
@@ -677,47 +732,174 @@ button {
   color: #171717;
 }
 
-/* Tracks Grid */
+/* Game Level Tracks Grid */
 .track-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  gap: 14px;
 }
 
-.track-card {
-  background: white;
-  border: 1px solid var(--line);
-  min-height: 135px;
-  padding: 20px 10px;
-  text-align: center;
+.level-card {
+  background: #ffffff;
+  border: 2px solid #2b2112;
+  box-shadow: 3px 3px 0 #2b2112;
+  padding: 14px 12px 12px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  transition: 0.25s;
+  justify-content: space-between;
+  min-height: 250px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  user-select: none;
 }
 
-.track-icon-container {
-  height: 42px;
+.level-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #d1c7b7;
+  margin-bottom: 12px;
+  font-family: 'Press Start 2P', monospace;
+}
+
+.level-number-tag {
+  font-size: 9px;
+  font-weight: bold;
+  color: #1a1a1a;
+  letter-spacing: 0.5px;
+  transition: color 0.15s ease;
+}
+
+.level-number-tag .lvl-prefix {
+  font-size: 7.5px;
+  color: #8c8273;
+}
+
+.level-status-pill {
+  font-size: 6.5px;
+  color: #16a34a;
+  background: #eafaf1;
+  padding: 2px 4px;
+  border: 1px solid #bbf7d0;
+  letter-spacing: 0.3px;
+}
+
+.level-icon-wrapper {
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.track-card h3 {
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0 0 8px;
-  color: #171717;
+.level-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
-.track-card p {
+.level-title {
+  font-family: 'Press Start 2P', monospace;
   font-size: 9.5px;
-  line-height: 1.4;
-  color: var(--muted);
+  line-height: 1.35;
+  color: #111827;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.level-subtitle {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #df3035;
+  line-height: 1.35;
+  margin: 0 0 8px;
+  letter-spacing: 0.3px;
+  font-weight: normal;
+}
+
+.level-desc {
+  font-size: 9.5px;
+  color: #6b7280;
+  line-height: 1.45;
   margin: 0;
+  font-family: var(--font-sans);
+}
+
+.level-card-footer {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed #e5e0d8;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.level-select-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f4ece1;
+  border: 1.5px solid #2b2112;
+  padding: 6px 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #2b2112;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #2b2112;
+  transition: all 0.15s ease;
+}
+
+.level-select-btn .select-arrow {
+  font-size: 8px;
+  transition: transform 0.15s ease;
+}
+
+/* Hover & Selected States */
+.level-card:hover {
+  border-color: #df3035;
+  box-shadow: 4px 4px 0 #df3035, 0 8px 24px rgba(223, 48, 53, 0.18);
+  transform: translateY(-4px);
+}
+
+.level-card:hover .level-number-tag {
+  color: #df3035;
+}
+
+.level-card:hover .level-card-header {
+  border-bottom-color: rgba(223, 48, 53, 0.4);
+}
+
+.level-card:hover .level-icon-wrapper {
+  transform: scale(1.12);
+}
+
+.level-card:hover .level-select-btn {
+  background: #df3035;
+  color: #ffffff;
+  border-color: #df3035;
+  box-shadow: 2px 2px 0 #991b1b;
+}
+
+.level-card:hover .select-arrow {
+  transform: translateX(3px);
+}
+
+.level-card.selected-level {
+  border-color: #df3035;
+  box-shadow: 4px 4px 0 #df3035;
+  background: #fffcfb;
+}
+
+.level-card.selected-level .level-number-tag {
+  color: #df3035;
+}
+
+.level-card.selected-level .level-select-btn {
+  background: #df3035;
+  color: #ffffff;
+  border-color: #df3035;
 }
 
 /* Participate */
@@ -1108,134 +1290,773 @@ button {
 }
 
 /* Ready to Build (Final CTA) */
-.final-cta {
+/* =========================================
+   DYNAMIC RETRO PIXEL FOOTER COMPONENT
+========================================= */
+
+.pixel-footer-wrap {
   position: relative;
-  text-align: center;
-  padding: 50px 20px 55px;
+  width: 100%;
+  background: #090a0e;
+  border-top: 2px solid #2b2112;
   overflow: hidden;
-  background: #fffdf9;
+}
+
+.pixel-footer-sky {
+  position: relative;
+  width: 100%;
+  min-height: 180px;
+  padding: 30px 32px 36px;
+  background: radial-gradient(ellipse at 50% 120%, #171f2c 0%, #0c1017 60%, #06080b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Twinkling Pixel Stars */
+.pixel-star {
+  position: absolute;
+  color: #ffe680;
+  font-size: 11px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  opacity: 0.85;
+  animation: star-pulse 2.5s infinite ease-in-out;
+}
+
+.star-1 { top: 18%; left: 6%; font-size: 13px; color: #fff; animation-delay: 0.2s; }
+.star-2 { top: 38%; left: 14%; font-size: 8px; color: #ffd166; animation-delay: 1.1s; }
+.star-3 { top: 15%; left: 34%; font-size: 10px; color: #a8dadc; animation-delay: 0.6s; }
+.star-4 { top: 22%; right: 38%; font-size: 12px; color: #ffe680; animation-delay: 1.8s; }
+.star-5 { top: 42%; right: 28%; font-size: 9px; color: #fff; animation-delay: 0.4s; }
+.star-6 { top: 16%; right: 12%; font-size: 14px; color: #ffd166; animation-delay: 1.4s; }
+.star-7 { top: 32%; right: 4%; font-size: 9px; color: #a8dadc; animation-delay: 0.9s; }
+
+@keyframes star-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 6px rgba(255, 230, 128, 0.9)); }
+}
+
+/* Footer Content Row */
+.pixel-footer-inner {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+  z-index: 5;
+}
+
+/* Left: Catchphrase */
+.footer-left-block {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.footer-catchphrase {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: 'Press Start 2P', monospace;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.phrase-cyan {
+  color: #00f0ff;
+  font-size: 12.5px;
+  letter-spacing: 0.6px;
+  line-height: 1.45;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.55), 0 2px 4px #000;
+}
+
+.phrase-cyan-sub {
+  color: #00f0ff;
+  font-size: 12.5px;
+  letter-spacing: 0.6px;
+  line-height: 1.45;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.55), 0 2px 4px #000;
+}
+
+/* Center: Call to Action Button */
+.footer-center-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.pixel-register-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(180deg, #e53935 0%, #b71c1c 100%);
+  color: #ffffff;
+  border: 2px solid #ff7979;
+  border-radius: 9999px;
+  padding: 16px 36px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 0 28px rgba(229, 57, 53, 0.85), 0 4px 14px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  user-select: none;
+}
+
+.pixel-register-cta-btn:hover {
+  transform: scale(1.06);
+  background: linear-gradient(180deg, #ef5350 0%, #c62828 100%);
+  box-shadow: 0 0 38px rgba(229, 57, 53, 1), 0 0 14px rgba(255, 255, 255, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border-color: #ffffff;
+}
+
+.pixel-register-cta-btn:active {
+  transform: scale(0.97);
+}
+
+.cta-arrow {
+  font-size: 14px;
+  transition: transform 0.15s ease;
+}
+
+.pixel-register-cta-btn:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+.footer-love-tag {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #8da4be;
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.pixel-heart {
+  color: #ff3344;
+  display: inline-block;
+  animation: heart-beat 1.5s ease-in-out infinite;
+}
+
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); filter: drop-shadow(0 0 4px #ff3344); }
+}
+
+/* Right: Event Details & Contact */
+.footer-right-block {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.footer-event-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  text-align: right;
+  font-family: 'Press Start 2P', monospace;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.badge-brand {
+  font-size: 14px;
+  letter-spacing: 0.6px;
+  line-height: 1.3;
+}
+
+.brand-b2b {
+  color: #df3035;
+  text-shadow: 0 0 10px rgba(223, 48, 53, 0.7);
+}
+
+.brand-hacks {
+  color: #ffffff;
+}
+
+.badge-venue {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 9.5px;
+  color: #e5e7eb;
+  letter-spacing: 0.3px;
+}
+
+.venue-pin {
+  font-size: 9px;
+  color: #df3035;
+}
+
+.venue-name {
+  color: #d1d5db;
+}
+
+.footer-contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.15);
+  align-items: flex-end;
+}
+
+.contact-title {
+  font-size: 7.5px;
+  color: #9ca3af;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #00f0ff;
+  font-size: 8px;
+  text-decoration: none;
+  letter-spacing: 0.2px;
+  transition: color 0.15s, transform 0.15s;
+}
+
+.contact-link:hover {
+  color: #ffffff;
+  transform: translateX(-2px);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+}
+
+.contact-icon {
+  font-size: 8.5px;
+}
+
+/* Bottom Horizon Terrain */
+.pixel-dunes-horizon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    #cfb895 0px,
+    #cfb895 8px,
+    #bfa47d 8px,
+    #bfa47d 16px,
+    #8f7350 16px,
+    #8f7350 24px
+  );
+  border-top: 1px solid rgba(207, 184, 149, 0.5);
+  opacity: 0.45;
+  z-index: 2;
+}
+
+/* Dark Retro Status Footer */
+.pixel-status-bar {
+  background: #060709;
+  border-top: 1px solid #1c222c;
+  padding: 14px 24px;
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.status-bar-inner {
+  max-width: 1220px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.status-bar-left {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.status-brand-b2b { color: #df3035; }
+.status-brand-hacks { color: #ffffff; }
+
+.status-bar-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #9ca3af;
+  font-size: 11px;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bar-sep { color: #4b5563; }
+
+.status-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.status-val { color: #22c55e; }
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22c55e;
+  animation: pulse-led 1.5s infinite;
+}
+
+@keyframes pulse-led {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+@media (max-width: 1080px) {
+  .phrase-cyan,
+  .phrase-cyan-sub {
+    font-size: 9.5px;
+  }
+  .badge-brand {
+    font-size: 10.5px;
+  }
+  .badge-venue {
+    font-size: 7.5px;
+  }
+}
+
+@media (max-width: 860px) {
+  .pixel-footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+  .footer-left-block,
+  .footer-right-block {
+    justify-content: center;
+    flex: none;
+    width: 100%;
+  }
+  .footer-event-badge {
+    text-align: center;
+  }
+  .badge-venue {
+    justify-content: center;
+  }
+  .footer-contact-block {
+    align-items: center;
+    justify-content: center;
+  }
+  .status-bar-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+/* ========================================================
+   Venue & Pixel Treasure Map Section
+   ======================================================== */
+.venue-section {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 0;
   border-bottom: 1px solid var(--line);
 }
 
-.final-cta h2 {
+.venue-map-panel {
+  padding: 40px max(24px, calc((100vw - 1220px) / 2)) 40px;
+  border-right: 1px solid var(--line);
+  background: #faf7f2;
+}
+
+.treasure-map-container {
+  margin-top: 18px;
+  border: 2px solid #2b2112;
+  box-shadow: 4px 4px 0 #2b2112;
+  background: #f4ece1;
+  overflow: hidden;
+}
+
+.treasure-map-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  background: #3d2f1b;
+  color: #faebd7;
   font-family: 'Press Start 2P', monospace;
-  font-weight: 400;
-  font-size: clamp(20px, 3.2vw, 30px);
-  line-height: 1.5;
-  margin: 12px 0 10px;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #2b2112;
+}
+
+.map-title-text {
+  color: #f7d08a;
+  text-shadow: 1px 1px 0 #171717;
+}
+
+.treasure-map-frame {
   position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #102a43;
+}
+
+.treasure-map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: contrast(1.05) saturate(1.1);
+  transition: transform 0.4s ease;
+}
+
+.treasure-map-container:hover .treasure-map-img {
+  transform: scale(1.02);
+}
+
+.map-overlay-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 65%, rgba(43, 33, 18, 0.4) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Map Compass Badge */
+.map-compass-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(30, 22, 12, 0.85);
+  border: 2px solid #d4af37;
+  color: #faebd7;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+  z-index: 5;
+}
+
+.map-compass-badge .compass-icon {
+  color: #ffcc00;
+  animation: compass-wobble 4s ease-in-out infinite;
+}
+
+@keyframes compass-wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(12deg); }
+  75% { transform: rotate(-12deg); }
+}
+
+/* Target Pin Overlay pointing to the treasure */
+.treasure-target-pin {
+  position: absolute;
+  top: 26.5%;
+  left: 62.3%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.pin-pixel-x {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 24px;
+  font-weight: 900;
+  color: #ff2a2a;
+  text-shadow: 
+    0 0 8px rgba(255, 0, 0, 0.8),
+    2px 2px 0 #fff,
+    -2px -2px 0 #fff,
+    2px -2px 0 #fff,
+    -2px 2px 0 #fff,
+    0 3px 0 #000;
+  animation: pin-bounce 1.5s ease-in-out infinite alternate;
+  line-height: 1;
+}
+
+.pin-radar-pulse,
+.pin-radar-pulse-2 {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid #ff2a2a;
+  pointer-events: none;
+}
+
+.pin-radar-pulse {
+  width: 44px;
+  height: 44px;
+  animation: radar-pulse 2s infinite ease-out;
+}
+
+.pin-radar-pulse-2 {
+  width: 64px;
+  height: 64px;
+  animation: radar-pulse 2s infinite ease-out 0.6s;
+}
+
+@keyframes radar-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes pin-bounce {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-6px) scale(1.1); }
+}
+
+.pin-pixel-label {
+  margin-top: 8px;
+  background: rgba(18, 14, 8, 0.92);
+  border: 2px solid #df3035;
+  color: #fff;
+  padding: 6px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 2px 2px 0 #df3035;
+  white-space: nowrap;
+  animation: pin-float 3s ease-in-out infinite;
+}
+
+@keyframes pin-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.pin-tag {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #ffc107;
+  letter-spacing: 0.5px;
+}
+
+.pin-pixel-label strong {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.pin-pixel-label small {
+  font-size: 9px;
+  color: #ff9999;
+  font-weight: 600;
+}
+
+/* Map Legend */
+.treasure-map-legend {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(26, 18, 10, 0.88);
+  border: 1px solid #c89d56;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 9px;
+  color: #faebd7;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+}
+
+.legend-marker.red {
+  color: #ff3b30;
+  font-weight: bold;
+}
+
+.legend-marker.dash {
+  color: #ff9500;
+  letter-spacing: 1px;
+}
+
+/* Venue Details Panel */
+.venue-details-panel {
+  padding: 40px max(24px, calc((100vw - 1220px) / 2)) 40px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.venue-card {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  padding: 24px;
+  background: #faf7f2;
+  box-shadow: 0 4px 12px #3d2f1b0c;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.venue-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  background: #df3035;
+  color: #ffffff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 5px 10px;
+  border: 1px solid #b32025;
+  letter-spacing: 0.5px;
+}
+
+.venue-card h3 {
+  font-size: 16px;
+  font-weight: 800;
   color: #171717;
-  letter-spacing: -1.5px;
+  margin: 0;
+  line-height: 1.4;
 }
 
-.final-cta h2 .text-red {
-  color: var(--red);
+.venue-sub {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
 }
 
-.final-cta p {
-  font-size: 13px;
-  margin: 0 0 24px;
-  position: relative;
-  color: #6b6966;
-}
-
-.final-cta .button {
-  position: relative;
-}
-
-.cloud {
-  position: absolute;
-  color: #d8d7d2;
-  opacity: 0.65;
-  bottom: -10px;
-  pointer-events: none;
-}
-
-.cloud-left {
-  left: 6%;
-}
-
-.cloud-right {
-  right: 8%;
-}
-
-.rocket {
-  position: absolute;
-  left: 14%;
-  bottom: 24px;
-  color: var(--red);
-  transform: rotate(35deg);
-  animation: launch 5s ease-in-out infinite;
-  pointer-events: none;
-}
-
-/* Footer */
-.footer {
-  max-width: 1220px;
-  margin: auto;
-  padding: 40px max(24px, calc((100vw - 1220px) / 2)) 30px;
+.venue-coords-bar {
   display: grid;
-  grid-template-columns: 1.4fr .9fr 1.2fr .8fr;
-  gap: 30px;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: #f0eae1;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+}
+
+.coord-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.coord-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: var(--red);
+}
+
+.coord-val {
   font-size: 11px;
-}
-
-.footer-brand p {
-  line-height: 1.6;
-  margin: 16px 0 20px;
-  color: var(--muted);
-}
-
-.footer-brand small {
-  color: var(--muted);
-  font-size: 10px;
-}
-
-.footer h4 {
-  text-transform: uppercase;
-  font-size: 11px;
-  margin: 0 0 14px;
   font-weight: 700;
   color: #171717;
 }
 
-.footer > div:not(.footer-brand) a,
-.footer > div:not(.footer-brand) span {
-  display: block;
-  color: var(--muted);
-  margin: 0 0 9px;
+.quest-checkpoints {
+  border-top: 1px dashed var(--line);
+  padding-top: 14px;
 }
 
-.footer a:hover {
-  color: var(--red) !important;
+.quest-checkpoints h4 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #171717;
+  margin: 0 0 10px;
+  letter-spacing: 0.5px;
 }
 
-.footer span {
-  display: flex !important;
-  align-items: center;
-  gap: 6px;
-}
-
-.socials {
+.quest-checkpoints ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
-.socials a {
-  width: 28px;
-  height: 28px;
-  display: flex !important;
+.quest-checkpoints li {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line);
-  color: #252525 !important;
-  margin: 0 !important;
-  transition: border-color 0.2s, color 0.2s;
+  gap: 10px;
+  font-size: 11px;
+  color: #3d3a37;
 }
 
-.socials a:hover {
-  border-color: var(--red);
-  color: var(--red) !important;
+.checkpoint-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  padding: 3px 6px;
+  color: var(--red);
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.venue-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.venue-actions .map-btn,
+.venue-actions .copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  padding: 10px 16px;
+  height: 40px;
+}
+
+.venue-actions .copy-btn {
+  background: #ffffff;
 }
 
 /* Animations */
@@ -1307,6 +2128,19 @@ button {
     display: none;
   }
   .footer {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .venue-section {
+    grid-template-columns: 1fr;
+  }
+  .venue-map-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .venue-details-panel {
     padding-left: 24px;
     padding-right: 24px;
   }
@@ -1405,6 +2239,11 @@ button {
 }
 
 @media (max-width: 480px) {
+  .pixel-section-label {
+    font-size: 8.5px;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
   .hero-actions {
     flex-direction: column;
     width: 100%;
@@ -1573,4 +2412,142 @@ button {
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/* ========================================================
+   Registration Success & WhatsApp Container
+   ======================================================== */
+.registration-success-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 6px;
+  animation: reveal 0.5s ease;
+}
+
+.success-icon-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background: #f0fdf4;
+  border: 2px solid #22c55e;
+  border-radius: 50%;
+  margin-bottom: 16px;
+  color: #16a34a;
+}
+
+.success-icon-badge .sparkle-icon {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  color: #eab308;
+  animation: pin-bounce 1.5s infinite alternate;
+}
+
+.success-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #15803d;
+  margin: 0 0 8px;
+  letter-spacing: 0.5px;
+}
+
+.success-subtitle {
+  font-size: 13px;
+  color: #374151;
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+.success-subtitle b {
+  color: #111827;
+}
+
+.whatsapp-invite-box {
+  width: 100%;
+  background: #f0fdf4;
+  border: 2px solid #22c55e;
+  box-shadow: 3px 3px 0 #15803d;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.whatsapp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #25d366;
+  color: #ffffff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7.5px;
+  padding: 4px 8px;
+  border: 1px solid #1da851;
+  letter-spacing: 0.5px;
+}
+
+.whatsapp-invite-box h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #065f46;
+  margin: 0;
+}
+
+.whatsapp-invite-box p {
+  font-size: 11.5px;
+  color: #047857;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #25d366 !important;
+  color: #ffffff !important;
+  border: 2px solid #128c7e !important;
+  box-shadow: 2px 2px 0 #075e54;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 12px 20px;
+  width: 100%;
+  margin-top: 6px;
+  transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s;
+  text-decoration: none;
+}
+
+.whatsapp-btn:hover {
+  background: #20ba5a !important;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 #075e54;
+}
+
+.success-footer-actions {
+  width: 100%;
+}
+
+.close-modal-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+}
+
+@media (max-width: 860px) {
+  .hero-robot-static {
+    display: none;
+  }
 }
