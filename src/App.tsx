@@ -207,7 +207,7 @@ function App() {
             <p className="hero-subtitle">Agentic AI &amp; Cloud Hackathon</p>
             <p className="hero-description">Build. Innovate. Deploy.</p>
             <div className="event-meta">
-              <span><CalendarDays size={15} /> 30–31 Aug 2025</span>
+              <span><CalendarDays size={15} /> 10–11 Oct 2026</span>
               <span><MapPin size={15} /> Hyderabad, India</span>
             </div>
             <div className="hero-actions">

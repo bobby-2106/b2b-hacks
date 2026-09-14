@@ -117,7 +117,7 @@ export function RegistrationModal({ isOpen, onClose, selectedTrack }: Registrati
 
             <h2 className="success-title">REGISTRATION SUCCESSFUL! 🎉</h2>
             <p className="success-subtitle">
-              Welcome aboard, <b>{registeredName || 'Builder'}</b>! Your spot for <b>B2B HACKS 2025</b> has been secured.
+              Welcome aboard, <b>{registeredName || 'Builder'}</b>! Your spot for <b>B2B HACKS 2026</b> has been secured.
             </p>
 
             <div className="whatsapp-invite-box">
